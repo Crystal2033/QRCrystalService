@@ -19,7 +19,7 @@ import java.util.Optional;
  * @date 08/09/2023
  */
 @Controller
-@RequestMapping("/api/person")
+@RequestMapping("/api/persons")
 public class PersonController {
     private final PersonService personService;
 
@@ -44,7 +44,7 @@ public class PersonController {
         return optionalPerson.orElseThrow(() -> new EntityNotFoundException("Person not found exception"));
     }
 
-    @PatchMapping
+    @PutMapping
     public Person update(@RequestBody Person person){
         return personService.addPerson(person);
     }
