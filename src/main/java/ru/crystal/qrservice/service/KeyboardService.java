@@ -21,7 +21,7 @@ public class KeyboardService {
         this.keyboardRepository = keyboardRepository;
     }
 
-    public Keyboard addPerson(Keyboard keyboard){
+    public Keyboard addKeyboard(Keyboard keyboard){
         return keyboardRepository.save(keyboard);
     }
 

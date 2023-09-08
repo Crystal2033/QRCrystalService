@@ -1,6 +1,7 @@
 package ru.crystal.qrservice.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.sql.Date;
 
@@ -10,6 +11,7 @@ import java.sql.Date;
  * @date 07/09/2023
  */
 @Entity
+@Data
 @Table(name = "monitor")
 public class Monitor {
     @Id

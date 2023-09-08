@@ -36,18 +36,18 @@ public class KeyboardController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return keyboardService.addPerson(keyboard);
+        return keyboardService.addKeyboard(keyboard);
     }
 
     @GetMapping("/{id}")
     public Keyboard getById(@PathVariable Long id){
-        Optional<Keyboard> optionalPerson = keyboardService.getById(id);
-        return optionalPerson.orElseThrow(() -> new EntityNotFoundException("Keyboard not found exception"));
+        Optional<Keyboard> optionalKeyboard = keyboardService.getById(id);
+        return optionalKeyboard.orElseThrow(() -> new EntityNotFoundException("Keyboard not found exception"));
     }
 
     @PutMapping
     public Keyboard update(@RequestBody Keyboard keyboard){
-        return keyboardService.addPerson(keyboard);
+        return keyboardService.addKeyboard(keyboard);
     }
 
     @DeleteMapping("/{id}")
