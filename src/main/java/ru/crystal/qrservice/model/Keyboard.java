@@ -11,6 +11,7 @@ import java.sql.Date;
  * @date 07/09/2023
  */
 @Entity
+@Table(name = "keyboard")
 public class Keyboard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,5 +25,5 @@ public class Keyboard {
     private Date startUseDate;
 
     @ManyToOne
-    private WorkSpace workSpaceId;
+    private WorkSpace workSpace;
 }

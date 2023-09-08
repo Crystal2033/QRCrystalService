@@ -1,9 +1,6 @@
 package ru.crystal.qrservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 /**
  * @project QRService
@@ -11,6 +8,7 @@ import jakarta.persistence.Id;
  * @date 07/09/2023
  */
 @Entity
+@Table(name = "workSpace")
 public class WorkSpace {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

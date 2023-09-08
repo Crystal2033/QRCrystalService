@@ -1,6 +1,7 @@
 package ru.crystal.qrservice.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 /**
  * @project QRService
@@ -8,16 +9,18 @@ import jakarta.persistence.*;
  * @date 07/09/2023
  */
 @Entity
+@Data
+@Table(name = "person")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    private Department departmentId;
+    private Department department;
 
     @ManyToOne
-    private JobTitle titleId;
+    private JobTitle title;
 
     private String firstName;
 
@@ -27,5 +30,5 @@ public class Person {
     private byte[] image;
 
     @ManyToOne
-    private WorkSpace workSpaceId;
+    private WorkSpace workSpace;
 }

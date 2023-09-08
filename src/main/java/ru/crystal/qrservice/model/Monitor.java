@@ -10,8 +10,9 @@ import java.sql.Date;
  * @date 07/09/2023
  */
 @Entity
+@Table(name = "monitor")
 public class Monitor {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
@@ -23,5 +24,5 @@ public class Monitor {
     private Date startUseDate;
 
     @ManyToOne
-    private WorkSpace workSpaceId;
+    private WorkSpace workSpace;
 }
