@@ -1,13 +1,12 @@
 package ru.crystal.qrservice.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.crystal.qrservice.model.Person;
+import ru.crystal.qrservice.database.model.Person;
 import ru.crystal.qrservice.service.PersonService;
 
 import java.io.IOException;
@@ -18,7 +17,8 @@ import java.util.Optional;
  * ©Crystal2033
  * @date 08/09/2023
  */
-@Controller
+@RestController
+@Slf4j
 @RequestMapping("/api/persons")
 public class PersonController {
     private final PersonService personService;
@@ -29,11 +29,11 @@ public class PersonController {
     }
 
     @PostMapping
-    public Person add(@RequestPart("person") Person person, @RequestPart("file") MultipartFile file){
+    public Person add(@RequestPart("person") Person person, @RequestPart("image") MultipartFile file){
         try {
             person.setImage(file.getBytes());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
         return personService.addPerson(person);
     }

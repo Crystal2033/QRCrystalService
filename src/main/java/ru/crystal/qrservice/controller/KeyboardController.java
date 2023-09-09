@@ -1,14 +1,13 @@
 package ru.crystal.qrservice.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.crystal.qrservice.model.Keyboard;
-import ru.crystal.qrservice.model.Person;
+import ru.crystal.qrservice.database.model.Keyboard;
 import ru.crystal.qrservice.service.KeyboardService;
-import ru.crystal.qrservice.service.PersonService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -18,7 +17,8 @@ import java.util.Optional;
  * ©Crystal2033
  * @date 08/09/2023
  */
-@Controller
+@RestController
+@Slf4j
 @RequestMapping("/api/keyboards")
 public class KeyboardController {
 
@@ -30,11 +30,11 @@ public class KeyboardController {
     }
 
     @PostMapping
-    public Keyboard add(@RequestPart("keyboard") Keyboard keyboard, @RequestPart("file") MultipartFile image){
+    public Keyboard add(@RequestPart("keyboard") Keyboard keyboard, @RequestPart("image") MultipartFile image){
         try {
             keyboard.setImage(image.getBytes());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
         return keyboardService.addKeyboard(keyboard);
     }

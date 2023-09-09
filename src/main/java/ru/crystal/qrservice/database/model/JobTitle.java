@@ -1,6 +1,7 @@
-package ru.crystal.qrservice.model;
+package ru.crystal.qrservice.database.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 /**
  * @project QRService
@@ -8,9 +9,12 @@ import jakarta.persistence.*;
  * @date 07/09/2023
  */
 @Entity
-@Table(name = "workSpace")
-public class WorkSpace {
+@Data
+@Table(name = "jobTitle")
+public class JobTitle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String name;
 }

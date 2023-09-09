@@ -1,10 +1,8 @@
 package ru.crystal.qrservice.service;
 
 import org.springframework.stereotype.Service;
-import ru.crystal.qrservice.model.Monitor;
-import ru.crystal.qrservice.model.Person;
+import ru.crystal.qrservice.database.model.Monitor;
 import ru.crystal.qrservice.repository.MonitorRepository;
-import ru.crystal.qrservice.repository.PersonRepository;
 
 import java.util.Optional;
 
@@ -21,15 +19,17 @@ public class MonitorService {
         this.monitorRepository = monitorRepository;
     }
 
-    public Monitor addMonitor(Monitor monitor){
+    public Monitor addMonitor(Monitor monitor) {
         return monitorRepository.save(monitor);
     }
 
-    public Optional<Monitor> getById(Long id){
+    public Optional<Monitor> getById(Long id) {
         return monitorRepository.findById(id);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         monitorRepository.deleteById(id);
     }
+
+
 }

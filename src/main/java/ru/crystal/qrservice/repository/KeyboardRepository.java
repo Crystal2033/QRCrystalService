@@ -2,7 +2,7 @@ package ru.crystal.qrservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.crystal.qrservice.model.Keyboard;
+import ru.crystal.qrservice.database.model.Keyboard;
 
 /**
  * @project QRService

@@ -1,10 +1,8 @@
 package ru.crystal.qrservice.service;
 
 import org.springframework.stereotype.Service;
-import ru.crystal.qrservice.model.Keyboard;
-import ru.crystal.qrservice.model.Person;
+import ru.crystal.qrservice.database.model.Keyboard;
 import ru.crystal.qrservice.repository.KeyboardRepository;
-import ru.crystal.qrservice.repository.PersonRepository;
 
 import java.util.Optional;
 
@@ -21,15 +19,17 @@ public class KeyboardService {
         this.keyboardRepository = keyboardRepository;
     }
 
-    public Keyboard addKeyboard(Keyboard keyboard){
+    public Keyboard addKeyboard(Keyboard keyboard) {
         return keyboardRepository.save(keyboard);
     }
 
-    public Optional<Keyboard> getById(Long id){
+    public Optional<Keyboard> getById(Long id) {
         return keyboardRepository.findById(id);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         keyboardRepository.deleteById(id);
     }
+
+
 }
