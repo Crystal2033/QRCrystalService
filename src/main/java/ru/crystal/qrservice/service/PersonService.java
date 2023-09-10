@@ -25,20 +25,16 @@ public class PersonService {
         this.qrCodeService = qrCodeService;
     }
 
-    public Person addPerson(Person person) {
+    public Person addPerson(Person person) { //TODO: add spring AOP
         personRepository.save(person);
         try {
-            createQRCode(person);
+            qrCodeService.createQRCode(person);
         } catch (IOException e) {
             log.error("can not create file for saving qr code");
         }
         return person;
     }
 
-    public void createQRCode(Person person) throws IOException {
-        BufferedImage image = qrCodeService.generateQRCodeImage(person.getJSONDataForQR());
-        qrCodeService.saveQRCodeByPath(image, "D:\\Paul\\Programming\\Java\\QRCrystalService\\TestQRPhotos\\img.jpg");
-    }
     public Optional<Person> getById(Long id) {
         return personRepository.findById(id);
     }

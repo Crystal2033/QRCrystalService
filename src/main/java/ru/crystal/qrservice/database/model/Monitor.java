@@ -26,7 +26,7 @@ public class Monitor implements JSONifyierForQR {
     @Lob
     private byte[] image;
 
-    private Date startUseDate;
+    private Date startUseDate = new Date(new java.util.Date().getTime());;
 
     @ManyToOne
     private WorkSpace workSpace;
