@@ -28,7 +28,6 @@ public class Person implements JSONifyierForQR {
     private String firstName;
 
     private String secondName;
-
     @Lob
     private byte[] image;
 
