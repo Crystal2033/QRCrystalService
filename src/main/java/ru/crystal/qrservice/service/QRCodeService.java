@@ -1,6 +1,8 @@
 package ru.crystal.qrservice.service;
 
 import net.glxn.qrgen.javase.QRCode;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import ru.crystal.qrservice.database.options.JSONifyierForQR;
 
@@ -34,8 +36,14 @@ public class QRCodeService {
         ImageIO.write(bufferedImage, "jpg", outputfile);
     }
 
-    public void createQRCode(JSONifyierForQR objectForQRCreation) throws IOException {
-        BufferedImage image = generateQRCodeImage(objectForQRCreation.getJSONDataForQR());
-        saveQRCodeByPath(image, "D:\\Paul\\Programming\\Java\\QRCrystalService\\TestQRPhotos\\img.jpg");
+    public void createQRCode(JSONifyierForQR objectForQRCreation) throws IOException { //TODO: make return value to get QR code
+        String qrData = objectForQRCreation.getJSONDataForQR();
+        BufferedImage image = generateQRCodeImage(qrData);
+
+        JSONObject json = new JSONObject(qrData);
+        String tableName = json.getString(JSONifyierForQR.JSON_TABLE_NAME);
+        int tableId = json.getInt(JSONifyierForQR.JSON_ID);
+
+        saveQRCodeByPath(image, "D:\\Paul\\Programming\\Java\\QRCrystalService\\TestQRPhotos\\" + tableName + "-" + tableId + ".jpg");
     }
 }

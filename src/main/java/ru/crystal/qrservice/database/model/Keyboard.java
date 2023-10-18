@@ -34,9 +34,8 @@ public class Keyboard implements JSONifyierForQR {
 
     @Override
     public String getJSONDataForQR() {
-        JSONObject jsonForQR = new JSONObject();
-        jsonForQR.put(JSONifyierForQR.JSON_TABLE_NAME, DataBaseTableNames.KEYBOARD_DB_TABLE_NAME);
-        jsonForQR.put(JSONifyierForQR.JSON_ID, this.id);
-        return jsonForQR.toString();
+        jsonObjectForQR.put(JSONifyierForQR.JSON_TABLE_NAME, DataBaseTableNames.KEYBOARD_DB_TABLE_NAME);
+        jsonObjectForQR.put(JSONifyierForQR.JSON_ID, this.id);
+        return jsonObjectForQR.toString();
     }
 }

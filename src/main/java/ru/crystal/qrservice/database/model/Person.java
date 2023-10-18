@@ -2,7 +2,6 @@ package ru.crystal.qrservice.database.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.json.JSONObject;
 import ru.crystal.qrservice.database.options.JSONifyierForQR;
 import ru.crystal.qrservice.database.options.DataBaseTableNames;
 
@@ -36,9 +35,8 @@ public class Person implements JSONifyierForQR {
 
     @Override
     public String getJSONDataForQR() {
-        JSONObject jsonForQR = new JSONObject();
-        jsonForQR.put(JSONifyierForQR.JSON_TABLE_NAME, DataBaseTableNames.PERSON_DB_TABLE_NAME);
-        jsonForQR.put(JSONifyierForQR.JSON_ID, this.id);
-        return jsonForQR.toString();
+        jsonObjectForQR.put(JSONifyierForQR.JSON_TABLE_NAME, DataBaseTableNames.PERSON_DB_TABLE_NAME);
+        jsonObjectForQR.put(JSONifyierForQR.JSON_ID, this.id);
+        return jsonObjectForQR.toString();
     }
 }
