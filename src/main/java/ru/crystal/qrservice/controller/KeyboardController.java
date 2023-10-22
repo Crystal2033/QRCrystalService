@@ -3,6 +3,7 @@ package ru.crystal.qrservice.controller;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,9 @@ public class KeyboardController {
 
     private final KeyboardService keyboardService;
 
+    @Value("${hostname}")
+    private String hostname;
+
     @Autowired
     public KeyboardController(KeyboardService keyboardService) {
         this.keyboardService = keyboardService;
@@ -41,8 +45,10 @@ public class KeyboardController {
 
     @GetMapping("/{id}")
     public Keyboard getById(@PathVariable Long id){
-        Optional<Keyboard> optionalKeyboard = keyboardService.getById(id);
-        return optionalKeyboard.orElseThrow(() -> new EntityNotFoundException("Keyboard not found exception"));
+        //Optional<Keyboard> optionalKeyboard = Optional.of(keyboardService.getById(id));
+        log.info("Host: " + hostname);
+        return keyboardService.getById(id);
+        //return optionalKeyboard.orElseThrow(() -> new EntityNotFoundException("Keyboard not found exception"));
     }
 
     @PutMapping

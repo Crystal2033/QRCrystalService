@@ -1,6 +1,7 @@
 package ru.crystal.qrservice.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.crystal.qrservice.database.model.Monitor;
 import ru.crystal.qrservice.repository.MonitorRepository;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class MonitorService {
     private final MonitorRepository monitorRepository;
     private final QRCodeService qrCodeService;
-
+    @Autowired
     public MonitorService(MonitorRepository monitorRepository, QRCodeService qrCodeService) {
         this.monitorRepository = monitorRepository;
         this.qrCodeService = qrCodeService;
