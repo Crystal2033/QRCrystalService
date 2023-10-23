@@ -1,16 +1,13 @@
 package ru.crystal.qrservice.controller;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.crystal.qrservice.database.model.Person;
 import ru.crystal.qrservice.service.PersonService;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @project QRService
@@ -29,7 +26,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public Person add(@RequestPart("person") Person person, @RequestPart("image") MultipartFile file){
+    public Person addMultipart(@RequestPart("person") Person person, @RequestPart("image") MultipartFile file) {
         try {
             person.setImage(file.getBytes());
         } catch (IOException e) {
@@ -38,19 +35,23 @@ public class PersonController {
         return personService.addPerson(person);
     }
 
+//    @PostMapping
+//    public Person add(@RequestBody Person person) {
+//        return personService.addPerson(person);
+//    }
+
     @GetMapping("/{id}")
-    public Person getById(@PathVariable Long id){
-        Optional<Person> optionalPerson = personService.getById(id);
-        return optionalPerson.orElseThrow(() -> new EntityNotFoundException("Person not found exception"));
+    public Person getById(@PathVariable Long id) {
+        return personService.getById(id);
     }
 
     @PutMapping
-    public Person update(@RequestBody Person person){
+    public Person update(@RequestBody Person person) {
         return personService.addPerson(person);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         personService.deleteById(id);
     }
 }

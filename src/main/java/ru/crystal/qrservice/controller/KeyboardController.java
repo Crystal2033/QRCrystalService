@@ -1,17 +1,16 @@
 package ru.crystal.qrservice.controller;
 
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.crystal.qrservice.database.model.Keyboard;
 import ru.crystal.qrservice.service.KeyboardService;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @project QRService
@@ -34,7 +33,7 @@ public class KeyboardController {
     }
 
     @PostMapping
-    public Keyboard add(@RequestPart("keyboard") Keyboard keyboard, @RequestPart("image") MultipartFile image){
+    public Keyboard addMultipart(@RequestPart("keyboard") Keyboard keyboard, @RequestPart("image") @NotNull MultipartFile image) {
         try {
             keyboard.setImage(image.getBytes());
         } catch (IOException e) {
@@ -43,21 +42,23 @@ public class KeyboardController {
         return keyboardService.addKeyboard(keyboard);
     }
 
+//    @PostMapping
+//    public Keyboard add(@RequestBody Keyboard keyboard) {
+//        return keyboardService.addKeyboard(keyboard);
+//    }
+
     @GetMapping("/{id}")
-    public Keyboard getById(@PathVariable Long id){
-        //Optional<Keyboard> optionalKeyboard = Optional.of(keyboardService.getById(id));
-        log.info("Host: " + hostname);
+    public Keyboard getById(@PathVariable Long id) {
         return keyboardService.getById(id);
-        //return optionalKeyboard.orElseThrow(() -> new EntityNotFoundException("Keyboard not found exception"));
     }
 
     @PutMapping
-    public Keyboard update(@RequestBody Keyboard keyboard){
+    public Keyboard update(@RequestBody Keyboard keyboard) {
         return keyboardService.addKeyboard(keyboard);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         keyboardService.deleteById(id);
     }
 }

@@ -6,11 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.crystal.qrservice.database.model.Keyboard;
-import ru.crystal.qrservice.exception.ResourceNotFoundException;
 import ru.crystal.qrservice.repository.KeyboardRepository;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @project QRService
@@ -23,15 +21,16 @@ public class KeyboardService {
 
     private final KeyboardRepository keyboardRepository;
     private final QRCodeService qrCodeService;
+
     @Autowired
     public KeyboardService(KeyboardRepository keyboardRepository, QRCodeService qrCodeService) {
         this.keyboardRepository = keyboardRepository;
         this.qrCodeService = qrCodeService;
     }
 
-    public Keyboard addKeyboard(Keyboard keyboard) { //TODO: add spring AOP
+    public Keyboard addKeyboard(Keyboard keyboard) {
         keyboardRepository.save(keyboard);
-
+        log.info("Trying to add new keyboard with model: {}...", keyboard.getModel());
         try {
             qrCodeService.createQRCode(keyboard);
         } catch (IOException e) {
@@ -39,17 +38,21 @@ public class KeyboardService {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
+        log.info("Keyboard with model: {} has been saved.", keyboard.getModel());
         return keyboard;
     }
 
     public Keyboard getById(Long id) {
-        return keyboardRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Keyboard with id=" + id + " not found.")
-        );
+        return keyboardRepository.findById(id).get();
     }
 
     public void deleteById(Long id) {
-        keyboardRepository.deleteById(id);
+        try {
+            keyboardRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("impossible to delete not exising keyboard with id:" + id);
+        }
+
     }
 
 

@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.crystal.qrservice.database.model.Person;
+import ru.crystal.qrservice.exception.ResourceNotFoundException;
 import ru.crystal.qrservice.repository.PersonRepository;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @project QRService
@@ -20,6 +19,7 @@ import java.util.Optional;
 public class PersonService {
     private final PersonRepository personRepository;
     private final QRCodeService qrCodeService;
+
     @Autowired
     public PersonService(PersonRepository personRepository, QRCodeService qrCodeService) {
         this.personRepository = personRepository;
@@ -36,12 +36,22 @@ public class PersonService {
         return person;
     }
 
-    public Optional<Person> getById(Long id) {
-        return personRepository.findById(id);
+    public Person getById(Long id) {
+        log.info("Trying to get person with id:" + id);
+        Person person = personRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Person with id=" + id + "not found")
+        );
+        log.info("We have got person with id:" + id);
+        return person;
     }
 
     public void deleteById(Long id) {
-        personRepository.deleteById(id);
+        try {
+            personRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("impossible to delete not exising person with id:" + id);
+        }
+
     }
 
 }

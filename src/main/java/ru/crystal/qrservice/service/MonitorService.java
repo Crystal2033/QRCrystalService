@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.crystal.qrservice.database.model.Monitor;
+import ru.crystal.qrservice.exception.ResourceNotFoundException;
 import ru.crystal.qrservice.repository.MonitorRepository;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @project QRService
@@ -19,6 +19,7 @@ import java.util.Optional;
 public class MonitorService {
     private final MonitorRepository monitorRepository;
     private final QRCodeService qrCodeService;
+
     @Autowired
     public MonitorService(MonitorRepository monitorRepository, QRCodeService qrCodeService) {
         this.monitorRepository = monitorRepository;
@@ -35,12 +36,21 @@ public class MonitorService {
         return monitor;
     }
 
-    public Optional<Monitor> getById(Long id) {
-        return monitorRepository.findById(id);
+    public Monitor getById(Long id) {
+        log.info("Trying to get monitor with id:" + id);
+        Monitor monitor = monitorRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Monitor with id=" + id + " not found."));
+        log.info("We have got monitor with id:" + id);
+        return monitor;
     }
 
     public void deleteById(Long id) {
-        monitorRepository.deleteById(id);
+        try {
+            monitorRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("impossible to delete not exising monitor with id:" + id);
+        }
+
     }
 
 

@@ -1,7 +1,6 @@
 package ru.crystal.qrservice.service;
 
 import net.glxn.qrgen.javase.QRCode;
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import ru.crystal.qrservice.database.options.JSONifyierForQR;
