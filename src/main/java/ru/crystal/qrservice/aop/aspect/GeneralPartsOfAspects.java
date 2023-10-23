@@ -15,6 +15,19 @@ import ru.crystal.qrservice.exception.SaveDataException;
 @Component
 public class GeneralPartsOfAspects<T> {
 
+    public long getIdFromArgs(ProceedingJoinPoint joinPoint,
+                               String logMessageBeforeId) {
+        long id = 0;
+        Object[] args = joinPoint.getArgs();
+        for (Object arg : args) {
+            if (arg instanceof Long) {
+                id = (long) arg;
+                log.info(logMessageBeforeId + id);
+            }
+        }
+        return id;
+    }
+
     public T getResultOfAddProceed(ProceedingJoinPoint joinPoint, String errorMessage) {
         T result;
         try {

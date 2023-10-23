@@ -26,18 +26,18 @@ public class KeyboardAspects {
         this.generalPartsOfAspects = generalPartsOfAspects;
     }
 
-    private long getKeyboardIdFromArgs(ProceedingJoinPoint joinPoint,
-                                       String logMessageBeforeId) {
-        long keyboardId = 0;
-        Object[] args = joinPoint.getArgs();
-        for (Object arg : args) {
-            if (arg instanceof Long) {
-                keyboardId = (long) arg;
-                log.info(logMessageBeforeId + keyboardId);
-            }
-        }
-        return keyboardId;
-    }
+//    private long getKeyboardIdFromArgs(ProceedingJoinPoint joinPoint,
+//                                       String logMessageBeforeId) {
+//        long keyboardId = 0;
+//        Object[] args = joinPoint.getArgs();
+//        for (Object arg : args) {
+//            if (arg instanceof Long) {
+//                keyboardId = (long) arg;
+//                log.info(logMessageBeforeId + keyboardId);
+//            }
+//        }
+//        return keyboardId;
+//    }
 
     @Around("ru.crystal.qrservice.aop.pointcut.KeyboardPointcuts.allGetMethods()")
     public Object aroundGettingAdvice(ProceedingJoinPoint joinPoint) {
@@ -45,7 +45,7 @@ public class KeyboardAspects {
 
         long keyboardId = 0;
         if (methodSignature.getName().equals("getById")) {
-            keyboardId = getKeyboardIdFromArgs(joinPoint, "Trying to get keyboard by id=");
+            keyboardId = generalPartsOfAspects.getIdFromArgs(joinPoint, "Trying to get keyboard by id=");
         }
 
         Keyboard keyboard = generalPartsOfAspects.getResultOfGetProceed(
@@ -60,7 +60,7 @@ public class KeyboardAspects {
 
         long keyboardId = 0;
         if (methodSignature.getName().equals("deleteById")) {
-            keyboardId = getKeyboardIdFromArgs(joinPoint, "Trying to delete keyboard with id=");
+            keyboardId = generalPartsOfAspects.getIdFromArgs(joinPoint, "Trying to delete keyboard with id=");
         }
         generalPartsOfAspects.getResultOfDeleteProceed(
                 joinPoint, "Keyboard with id=" + keyboardId + " not found.");
