@@ -8,6 +8,7 @@ import ru.crystal.qrservice.exception.ResourceNotFoundException;
 import ru.crystal.qrservice.repository.PersonRepository;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @project QRService
@@ -36,13 +37,11 @@ public class PersonService {
         return person;
     }
 
+    /**
+     * @return we will never return null because there is PersonAspect which has null check.
+     */
     public Person getById(Long id) {
-        log.info("Trying to get person with id:" + id);
-        Person person = personRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Person with id=" + id + "not found")
-        );
-        log.info("We have got person with id:" + id);
-        return person;
+        return personRepository.findById(id).orElse(null);
     }
 
     public void deleteById(Long id) {

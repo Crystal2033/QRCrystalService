@@ -50,6 +50,7 @@ public class KeyboardAspects {
 
         Keyboard keyboard = generalPartsOfAspects.getResultOfGetProceed(
                 joinPoint, "Keyboard with id:" + keyboardId + " not found. ");
+
         log.info("Got keyboard with id={}", keyboard.getId());
         return keyboard;
     }

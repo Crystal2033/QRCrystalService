@@ -5,11 +5,17 @@ package ru.crystal.qrservice.exception;
  * ©Crystal2033
  * @date 19/10/2023
  */
-public class AppError {
+
+/**
+ * Название метода get[name] == название поля name в ResponseBody
+ * Например, если метод, возвращающий message будет называться getMyMessage,
+ * то поле будет myMessage в ResponseBody
+ */
+public class ErrorInfo {
     private int statusCode;
     private String message;
 
-    public int getStatusCode() {
+    public int getStatus() {
         return statusCode;
     }
 
@@ -25,10 +31,10 @@ public class AppError {
         this.message = message;
     }
 
-    public AppError() {
+    public ErrorInfo() {
     }
 
-    public AppError(int statusCode, String message) {
+    public ErrorInfo(int statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }

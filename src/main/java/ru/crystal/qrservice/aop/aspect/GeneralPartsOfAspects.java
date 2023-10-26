@@ -44,6 +44,9 @@ public class GeneralPartsOfAspects<T> {
         T result;
         try {
             result = (T) joinPoint.proceed();
+            if (result == null){
+                throw new ResourceNotFoundException(errorMessageIfNeeded);
+            }
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
             throw new ResourceNotFoundException(errorMessageIfNeeded);

@@ -42,8 +42,11 @@ public class KeyboardService {
         return keyboard;
     }
 
+    /**
+     * @return we will never return null because there is KeyboardAspect which has null check.
+     */
     public Keyboard getById(Long id) {
-        return keyboardRepository.findById(id).get();
+        return keyboardRepository.findById(id).orElse(null);
     }
 
     public void deleteById(Long id) {
