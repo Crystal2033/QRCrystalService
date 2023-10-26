@@ -2,6 +2,8 @@ package ru.crystal.qrservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.crystal.qrservice.database.model.Person;
@@ -41,8 +43,9 @@ public class PersonController {
 //    }
 
     @GetMapping("/{id}")
-    public Person getById(@PathVariable Long id) {
-        return personService.getById(id);
+    public ResponseEntity<Person> getById(@PathVariable Long id) {
+        Person person = personService.getById(id);
+        return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
     @PutMapping
