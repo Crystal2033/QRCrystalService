@@ -27,20 +27,20 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping
-    public Person addMultipart(@RequestPart("person") Person person, @RequestPart("image") MultipartFile file) {
-        try {
-            person.setImage(file.getBytes());
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return personService.addPerson(person);
-    }
-
 //    @PostMapping
-//    public Person add(@RequestBody Person person) {
+//    public Person addMultipart(@RequestPart("person") Person person, @RequestPart("image") MultipartFile file) {
+//        try {
+//            person.setImage(file.getBytes());
+//        } catch (IOException e) {
+//            log.error(e.getMessage());
+//        }
 //        return personService.addPerson(person);
 //    }
+
+    @PostMapping
+    public Person add(@RequestBody Person person) {
+        return personService.addPerson(person);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Person> getById(@PathVariable Long id) {

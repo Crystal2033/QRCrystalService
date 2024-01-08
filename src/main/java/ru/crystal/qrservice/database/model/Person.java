@@ -22,7 +22,7 @@ public class Person implements JSONifyierForQR {
     private Department department;
 
     @ManyToOne
-    private JobTitle title;
+    private Title title;
 
     private String firstName;
 

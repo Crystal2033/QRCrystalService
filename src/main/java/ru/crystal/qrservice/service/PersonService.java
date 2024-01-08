@@ -28,13 +28,13 @@ public class PersonService {
     }
 
     public Person addPerson(Person person) { //TODO: add spring AOP
-        personRepository.save(person);
+        Person addedPerson = personRepository.save(person);
         try {
-            qrCodeService.createQRCode(person);
+            qrCodeService.createQRCode(addedPerson);
         } catch (IOException e) {
             log.error("can not create file for saving qr code");
         }
-        return person;
+        return addedPerson;
     }
 
     /**
